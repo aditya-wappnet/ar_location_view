@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'ar_location_view.dart';
+import 'ar_radar.dart';
 
 class ArLocationWidget extends StatefulWidget {
   const ArLocationWidget({
@@ -17,6 +18,12 @@ class ArLocationWidget extends StatefulWidget {
     this.yOffsetOverlap,
     this.accessory,
     this.minDistanceReload = 50,
+    this.scaleWithDistance = true,
+    this.markerColor,
+    this.backgroundRadar,tion,
+    this.radarPosition,
+    this.showRadar = true,
+    this.radarWidth,
   }) : super(key: key);
 
   ///List of POIs
@@ -55,6 +62,24 @@ class ArLocationWidget extends StatefulWidget {
   ///Min distance reload
   final double minDistanceReload;
 
+  ///Scale annotation view with distance from user
+  final bool scaleWithDistance;
+
+  /// marker color in radar
+  final Color? markerColor;
+
+  ///background radar color
+  final Color? backgroundRadar;
+
+  ///radar position in view
+  final RadarPosition? radarPosition;
+
+  ///Show radar in view
+  final bool showRadar;
+
+  ///Radar width
+  final double? radarWidth;
+
   @override
   State<ArLocationWidget> createState() => _ArLocationWidgetState();
 }
@@ -89,8 +114,14 @@ class _ArLocationWidgetState extends State<ArLocationWidget> {
             paddingOverlap: widget.paddingOverlap,
             yOffsetOverlap: widget.yOffsetOverlap,
             minDistanceReload: widget.minDistanceReload,
+            scaleWithDistance: widget.scaleWithDistance,
+            markerColor: widget.markerColor,
+            backgroundRadar: widget.backgroundRadar,
+            radarPosition: widget.radarPosition,
+            showRadar: widget.showRadar,
+            radarWidth: widget.radarWidth,
           ),
-        if (widget.accessory != null) widget.accessory!
+        if (initCam && widget.accessory != null) widget.accessory!
       ],
     );
   }
