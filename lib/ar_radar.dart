@@ -67,16 +67,33 @@ class RadarPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 
   void drawMarker(
-      Canvas canvas, List<ArAnnotation> annotations, double radius) {
+    Canvas canvas,
+    List<ArAnnotation> annotations,
+    double radius,
+  ) {
     for (final annotation in annotations) {
-      final Paint paint = Paint()..color = markerColor;
       final distanceInRadar =
           annotation.distanceFromUser / maxDistance * radius;
       final alpha = pi - annotation.azimuth.toRadians;
       final dx = (distanceInRadar) * sin(alpha);
       final dy = (distanceInRadar) * cos(alpha);
       final center = Offset(dx + radius, dy + radius);
-      canvas.drawCircle(center, 3, paint);
+
+      // Create a custom path for the treasure box icon
+      final Path path = Path();
+      path.moveTo(center.dx - 10, center.dy - 10);
+      path.lineTo(center.dx + 10, center.dy - 10);
+      path.lineTo(center.dx + 10, center.dy + 10);
+      path.lineTo(center.dx - 10, center.dy + 10);
+      path.close();
+
+      // Draw the icon on the canvas
+      canvas.drawPath(
+        path,
+        Paint()
+          ..color = Colors.brown // You can set your desired color here
+          ..style = PaintingStyle.fill,
+      );
     }
   }
 }
