@@ -38,7 +38,11 @@ class _ArCameraViewState extends State<ArCamera> {
   Widget build(BuildContext context) {
     if (!isCameraAuthorize) {
       return const Center(
-        child: Text('Need camera authorization'),
+        child: Column(
+          children:[
+            Text('Need camera authorization'),
+            
+            ]),
       );
     }
     if (!isCameraInitialize) {
